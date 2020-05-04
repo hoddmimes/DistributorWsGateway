@@ -5,7 +5,8 @@ real time broadcast using  [WebSocket](https://en.wikipedia.org/wiki/WebSocket).
 
 ![alt text](https://github.com/hoddmimes/DistributorWsGateway/blob/master/doc/DWG.png "Schematic solution")
 
-##Overview
+## Overview
+
 The _Distributor_ is a framework allowing applications to publish / subscribe real time message flows. 
 The the Distributor framework use IP multicast to exchange information. 
 
@@ -64,7 +65,7 @@ An example of a DWG is found below
 ```
 </small>
 
-####Attributes
+#### Attributes
 <small>
 
 * __appName__, name of of the application when announce itself as a _Distributor_ application.
@@ -90,10 +91,10 @@ An example of a DWG is found below
     * __password__ password for the user. 
 </small>
   
- ##WEB App
+## WEB App
 
-WEB applications should use an appropiate WebSocket API.
-The WEB can and should send a few messages inorder to receive updates.
+WEB applications should use an appropriate WebSocket API.
+The WEB apps can and should send a few messages inorder to receive updates.
 The messages are defined in the file [DistributorMessages.xml](https://github.com/hoddmimes/DistributorWsGateway/blob/master/xml/DistributorMessage.xml)
 All messages being sent and received are Json encoded. 
 An example of how to interact with a _DWG_ are found in the file [distributor.html](https://github.com/hoddmimes/DistributorWsGateway/blob/master/public/distributor.html)
