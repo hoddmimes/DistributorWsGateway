@@ -16,7 +16,6 @@
 	<Message name="RemoveSubscriptionRqst" rootMessage="true" >
 		<Attribute name="rqstId" type="int"/>
 		<Attribute name="handle" type="long"/>
-		<Attribute name="groupId" type="int"/>
 	</Message>
 
 	<Message name="RemoveSubscriptionRsp" rootMessage="true" >

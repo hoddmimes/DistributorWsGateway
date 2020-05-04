@@ -44,7 +44,6 @@ import com.google.gson.GsonBuilder;
             
                     private Integer mRqstId;
                     private Long mHandle;
-                    private Integer mGroupId;
                public RemoveSubscriptionRqst()
                {
                 
@@ -72,14 +71,6 @@ import com.google.gson.GsonBuilder;
               return  Optional.ofNullable(mHandle);
             }
         
-            public RemoveSubscriptionRqst setGroupId( Integer pGroupId ) {
-            mGroupId = pGroupId;
-            return this;
-            }
-            public Optional<Integer> getGroupId() {
-              return  Optional.ofNullable(mGroupId);
-            }
-        
 
         public String getMessageName() {
         return "RemoveSubscriptionRqst";
@@ -104,9 +95,6 @@ import com.google.gson.GsonBuilder;
             //Encode Attribute: mHandle Type: long List: false
             tEncoder.add( "handle", mHandle );
         
-            //Encode Attribute: mGroupId Type: int List: false
-            tEncoder.add( "groupId", mGroupId );
-        
         }
 
         
@@ -120,9 +108,6 @@ import com.google.gson.GsonBuilder;
         
             //Decode Attribute: mHandle Type:long List: false
             mHandle = tDecoder.readLong("handle");
-        
-            //Decode Attribute: mGroupId Type:int List: false
-            mGroupId = tDecoder.readInteger("groupId");
         
 
         }
@@ -155,11 +140,6 @@ import com.google.gson.GsonBuilder;
                 
                         public Builder setHandle( Long pValue ) {
                         mInstance.setHandle( pValue );
-                        return this;
-                    }
-                
-                        public Builder setGroupId( Integer pValue ) {
-                        mInstance.setGroupId( pValue );
                         return this;
                     }
                 
