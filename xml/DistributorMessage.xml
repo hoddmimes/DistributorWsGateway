@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Messages mongoSupport="true">
+
+	<Message name="AddSubscriptionRqst" rootMessage="true">
+		<Attribute name="rqstId" type="int"/>
+		<Attribute name="subjectId" type="String"/>
+		<Attribute name="groupId" type="int"/>
+		<Attribute name="callbackRef" type="String"/>
+	</Message>
+
+	<Message name="AddSubscriptionRsp" rootMessage="true" >
+		<Attribute name="rqstId" type="int"/>
+		<Attribute name="handle" type="long" />
+	</Message>
+
+	<Message name="RemoveSubscriptionRqst" rootMessage="true" >
+		<Attribute name="rqstId" type="int"/>
+		<Attribute name="handle" type="long"/>
+		<Attribute name="groupId" type="int"/>
+	</Message>
+
+	<Message name="RemoveSubscriptionRsp" rootMessage="true" >
+		<Attribute name="rqstId" type="int"/>
+		<Attribute name="removed" type="boolean"/>
+	</Message>
+
+
+	<Message name="LoginRqst" rootMessage="true" >
+		<Attribute name="rqstId" type="int"/>
+		<Attribute name="username" type="String"/>
+		<Attribute name="password" type="String"/>
+	</Message>
+
+	<Message name="LoginRsp" rootMessage="true" >
+		<Attribute name="rqstId" type="int"/>
+		<Attribute name="success" type="boolean"/>
+	</Message>
+
+	<Message name="ErrorRsp" rootMessage="true" >
+		<Attribute name="rqstId" type="int"/>
+		<Attribute name="message" type="String"/>
+		<Attribute name="exception" type="String"/>
+	</Message>
+
+	<Message name="Update" rootMessage="true">
+		<Attribute name="subjectId" type="String"/>
+		<Attribute name="handle" type="long"/>
+		<Attribute name="time" type="String"/>
+		<Attribute name="distQueLen" type="int"/>
+		<Attribute name="sndrQueLen" type="int"/>
+		<Attribute name="payload" type="String"/>
+		<Attribute name="callbackRef" type="String"/>
+	</Message>
+
+</Messages>

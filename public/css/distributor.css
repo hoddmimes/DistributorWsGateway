@@ -1,0 +1,215 @@
+/* =========================================
+ * Turf CSS Entries
+ * =========================================*/
+h1, h2, h3, h4 {
+	text-align:center;
+	color:navy;
+	font-family:Arial, Helvetica, sans-serif;
+}
+
+legend {
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:14px;
+	font-weight: bold;
+    font-style: italic;
+}
+
+.inputButton {
+    margin-top:30px;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 5px 10px 5px 10px;
+    background-color:#22b8eb;
+    border-radius:8px;
+}
+
+button {
+    margin-top:30px;
+    font-weight: bold;
+    font-size: 16px;
+    padding: 5px 10px 5px 10px;
+    background-color:#22b8eb;
+    border-radius:8px;
+}
+
+.lblprompt {
+    font-weight: bold;
+    font-size: 14px;
+    font-family: "Arial";
+}
+optgroup { font-size:14px; }
+
+.txtin {
+    font-family: "Arial";
+    font-size: 14px;
+}
+
+.borderDiv {
+    border-radius:8px;
+    border-style:dotted;
+    border-color:black;
+    border-width:2px;
+}
+
+#addZoneTable {
+	margin-left:65px
+}
+
+#divAddZone {
+    table-layout:fixed;
+	width:430px;
+}
+
+#divRegionStat {
+    table-layout:fixed;
+	margin-top:20px;
+	width:940px;
+	min-height:500px;
+	overflow-y: auto;    /* Trigger vertical scroll    */
+    overflow-x: hidden;  /* Hide the horizontal scroll */
+}
+
+
+.tableRegionStatClass {
+	background:#ffffff;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:14px;
+	color:navy;
+	margin-left:auto;
+    margin-right:auto;
+    border-collapse: collapse;
+    margin-bottom:20px;
+}
+
+#divRegionHourStat {
+    table-layout:fixed;
+	margin-top:30px;
+	width:930px;
+	min-height:500px;
+	overflow-y: auto;    /* Trigger vertical scroll    */
+    overflow-x: hidden;  /* Hide the horizontal scroll */
+}
+
+
+
+#divUpdateTable {
+    table-layout:fixed;
+	margin-top:30px;
+	width:800px;
+	min-height:400px;
+	overflow-y: auto;    /* Trigger vertical scroll    */
+    overflow-x: hidden;  /* Hide the horizontal scroll */
+}
+.tableUpdate {
+	background:#ffffff;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:14px;
+	color:navy;
+
+    margin-right:auto;
+	border-collapse: collapse;
+}
+
+.tdZone {
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+.thRegion {
+    text-align: center;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    border-collapse: collapse;
+    border: 2px solid lightgray;
+}
+
+.tdInt {
+    text-align: right;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    border-collapse: collapse;
+    border: 1px solid lightgray;
+}
+
+.tdString {
+    text-align: left;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    border-collapse: collapse;
+    border: 1px solid lightgray;
+}
+
+
+
+.drBorderDiv {
+    border-radius:8px;
+    border-style:dotted;
+    border-color:black;
+    border-width:2px;
+    margin-bottom:20px;
+    width: 666px;
+}
+
+.dayRankingTableClass {
+    font-family: Arial;
+     margin-left:30px;
+     margin-right:10px;
+     margin-top:10px;
+     margin-bottom:10px;
+     border: 1px solid black;
+     border-collapse: collapse;
+}
+
+.thDayRanking {
+    text-align: left;
+    font-family: Arial;
+    Font-Size : 12pt;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    font-weight: bold;
+    color:darkblue;
+    border-collapse: collapse;
+    border: 1px solid lightgray;
+}
+
+.tdDayRanking {
+    text-align: center;
+    font-family: Arial;
+    Font-Size : 12pt;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 2px;
+    padding-bottom: 2px;
+    family : Arial,sans-serif;
+    font-weight: bold; color:gray;
+    border-collapse: collapse;
+    border: 1px solid lightgray;
+}
+/*
+   =========================================
+   ============= Turf CSS End ==============
+   =========================================
+ */
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,165 @@
+<html>
+<head>
+    <script
+            src="https://code.jquery.com/jquery-3.3.1.js"
+            integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+            crossorigin="anonymous">
+    </script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="js/distributor.js" type="text/javascript"></script>
+    <script src="js/table.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="css/distributor.css">
+
+    <title>Distributor Subscriber</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+</head>
+<body>
+<br><br>
+<h3 style="text-align:left; margin-left: 40px">Distributor Subscriber</h3>
+<br>
+
+<table style="margin-left:80px;" border="0" cellpadding="10">
+    <tr>
+        <td>
+            <input class="inputButton" id="ws_connect" type="button" value="Connect" onclick="wsConnect();"/>
+        </td>
+        <td>
+            <input class="inputButton" id="ws_disconnect" type="button" value="Disconnect" onclick="wsDisconnect();" disabled/>
+        </td>
+    </tr>
+</table>
+
+
+<form style="text-align:left" id="ws_add_subscription" action="wsAddSubscription();">
+    <table border="0" cellpadding="5">
+        <tr>
+            <td><label class="lblprompt"><b>Subject</b></label></td>
+            <td><input class="txtin" id="subjectid" type="text" placeholder="/foo/bar/fie" name="subjectid" required></td>
+        </tr>
+        <tr>
+            <td><label class="lblprompt"><b>Group Id</b></label></td>
+            <td><input class="txtin" id="groupid" type="text"  value="1" name="groupid" required></td>
+        </tr>
+        <tr>
+            <td><label class="lblprompt"><b>Callback Ref</b></label></td>
+            <td><input class="txtin" id="callbackref" type="text"  placeholder="your callback reference" name="callbackref"></td>
+        </tr>
+    </table>
+    <br>
+    <button style="margin-left:100px;" disabled id="ws_add_subscription_button" type="submit">Add Subscription</button>
+</form>
+
+<div id="divUpdateTable" class="borderDiv">
+    <legend>Updates</legend>
+    <br>
+    <table id="updateTable" class="tableUpdate">
+        <tr>
+            <th>Time</th>
+            <th>Dist Que Len</th>
+            <th>Sndr Que Len</th>
+            <th>Message</th>
+        </tr>
+    </table>
+</div>
+
+<script>
+
+    var wsSocket = null;
+
+    var requestId = Math.round(new Date() / 1000);
+
+    var updateTableDef= { 'table' : 'regions',
+                        'keys' : [
+                           {'type' : 'string', 'column' : 0,  'jkey' : 'time',           'cssClass' : 'tdString'},
+                           {'type' : 'int',    'column' : 1,  'jkey' : 'distQueLen',     'cssClass' : 'tdInt'},
+                           {'type' : 'int',    'column' : 2,  'jkey' : 'sndrQueLen',     'cssClass' : 'tdInt'},
+                           {'type' : 'string', 'column' : 3,  'jkey' : 'payload',        'cssClass' : 'tdString'}]};
+
+
+
+    function updateReceived( event ) {
+        var msg = JSON.parse( event.data );
+        if(msg.hasOwnProperty('Update')) {
+            processUpdate( msg );
+        } else {
+            alert( event.data );
+        }
+    }
+
+
+    function processUpdate( updmsg )
+    {
+       updmsg.Update.payload = atob( updmsg.Update.payload );
+       tableInsert( document.getElementById('updateTable'), updateTableDef, updmsg.Update, Boolean( true ));
+       tableMaximizeSize( document.getElementById('updateTable'), 100 );
+    }
+
+    function wsConnect()
+    {
+      var host = null;
+      if (window.location.protocol == 'http:') {
+        host = 'ws:' + window.location.host + '/distributor';
+      } else {
+           host = 'wss:' + window.location.host + '/distributor';
+      }
+
+      if ('WebSocket' in window) {
+        wsSocket = new WebSocket( host );
+        document.getElementById('ws_disconnect').disabled = false;
+        document.getElementById('ws_add_subscription_button').disabled = false;
+        document.getElementById('ws_connect').disabled = true;
+      } else if ('MozWebSocket' in window) {
+          wsSocket = new MozWebSocket( host );
+        document.getElementById('ws_disconnect').disabled = false;
+        document.getElementById('ws_add_subscription_button').disabled = false;
+        document.getElementById('ws_connect').disabled = true;
+      } else {
+          Console.log('error: WebSocket is not supported by this browser');
+          return;
+      }
+      wsSocket.onmessage = updateReceived;
+    }
+
+
+
+/* attach a submit handler to the form */
+$("#ws_add_subscription").submit(function(event) {
+
+  /* stop form from submitting normally */
+  event.preventDefault();
+
+  if (isEmpty($('#subjectid').val())) {
+    alert("MSubscription id must not be empty!");
+    return;
+  }
+
+
+  /* get the action attribute from the <form action=""> element */
+  var $form = $( this ),
+  url = $form.attr( 'action' );
+
+  requestId = requestId + 1;
+  var callbackRef = requestId;
+  if (isEmpty($('#callbackref').val())) {
+     callbackRef = requestId.toString();
+  } else {
+     callbackRef = $('#callbackref').val();
+  }
+
+  var rqst = {AddSubscriptionRqst : {
+		         "subjectId" : $('#subjectid').val(),
+		         "callbackRef" : callbackRef,
+		         "groupId" : $('#groupid').val(),
+		         "rqstId" : requestId
+		          }}
+
+  //console.log( 'request-data: ' + JSON.stringify(rqst));
+
+  /* Send the data using as a vanila rest post request */
+    wsSocket.send(JSON.stringify(rqst));
+});
+
+
+</script>
+</body>
+</html>

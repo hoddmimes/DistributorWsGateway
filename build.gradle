@@ -1,0 +1,50 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath("org.springframework.boot:spring-boot-gradle-plugin:2.2.1.RELEASE")
+    }
+}
+
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+apply plugin: 'idea'
+apply plugin: 'org.springframework.boot'
+apply plugin: 'io.spring.dependency-management'
+
+
+group 'com.hoddmimes'
+version '1.0'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+task(generateDistributorWsClasses, type: JavaExec) {
+    main = 'JsonTransform'
+    classpath = files('./libs/pojojson-generate-1.0.jar')
+    args "-xml","./xml/DistributorMessagesFileSet.xml"
+}
+
+compileJava.dependsOn('generateDistributorWsClasses')
+
+dependencies {
+    compile fileTree(dir: 'libs', include: '*.jar')
+    compile  group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.13.1'
+    compile  group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.13.1'
+    compile group: 'com.google.code.gson', name: 'gson', version: '2.8.6'
+    compile group: 'org.mongodb', name: 'mongo-java-driver', version: '3.11.2'
+    compile group: 'xalan', name: 'xalan', version: '2.7.2'
+    compile group: 'org.aspectj', name: 'aspectjrt', version: '1.9.5'
+    compile group: 'com.networknt', name: 'json-schema-validator', version: '1.0.29'
+    compile group: 'org.springframework', name: 'spring-websocket', version: '5.2.5.RELEASE'
+    compile group: 'org.springframework', name: 'spring-messaging', version: '5.2.5.RELEASE'
+    compile group: 'org.springframework.session', name: 'spring-session', version: '1.3.5.RELEASE'
+    compile group: 'org.springframework.security', name: 'spring-security-web', version: '5.3.1.RELEASE'
+    compile group: 'org.springframework.boot', name: 'spring-boot-starter-websocket', version: '2.2.6.RELEASE'
+    compile("org.springframework.boot:spring-boot-starter-web")
+    testCompile('org.springframework.boot:spring-boot-starter-test')
+}

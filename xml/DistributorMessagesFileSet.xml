@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<MessageFiles>
+	<!-- Generate a sigle message factory for all messages defined in the "MessageFile" files found -->
+	<!-- If you do not like to generate a MessageFactory just comment out next line -->
+	<MessageFactory outPath="./src/main/java/com/hoddmimes/distributor/generated/" package="com.hoddmimes.distributor.generated"/>
+
+	<!-- Gnerates POJO objects with JSON support based upon the defintion found in the file -->
+	<!-- You may have multiple "MessageFile" entries -->
+	<MessageFile  file="./xml/DistributorMessage.xml" outPath="./src/main/java/com/hoddmimes/distributor/generated/" package="com.hoddmimes.distributor.generated"/>
+
+</MessageFiles>
+
+
