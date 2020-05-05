@@ -119,8 +119,7 @@ __Messages__
     * __subjectId__ subject idetifying the data being updated.
     * __handle__ the subscription _handle_ associated with the subscription causing the update to be sent. The handle is returned in the *AddSubscriptionRsp*
     * __time__ the time in the _DWG_ when the update was queued. Format "HH::mm:ss.SSS"
-    * __distQueLen__ inbound queue length to the _DWG_ on the receiver side.
-    * __sndrQueLen__ outbound queue length on the sender side to the WEB app when the update was queued.
+    * __payLoadIsB64__ is true is payload is B64 encoded
     * __payload__ data being update. (can be B64 encoded depending on the _DWG_ configuration).
     * __callbackRef__ user callback reference defined when the subscription was setup.  
      

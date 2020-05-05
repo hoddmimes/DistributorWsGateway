@@ -68,6 +68,11 @@ function tabGetJKey( pTabDef, jKey )
     return null;
 }
 
+function tableValueAtRowCol( pTable, pRow, pCol  )
+{
+    return pTable.rows[pRow].cells[pCol].innerHTML;
+}
+
 function tabFindRow( pTable, pTabKey, jKeyValue ) {
 
     for( var i = 1; i < pTable.rows.length; i++) {
@@ -90,7 +95,7 @@ function tableMaximizeSize( pTable, pSize ) {
 
 
 function tableDeleteRow( pTable, pTabDef, jKey, jKeyValue ) {
-    var tTabKey = tabGetJKey( jKey );
+    var tTabKey = tabGetJKey( pTabDef, jKey );
     if (tTabKey == null) {
         return Boolean( false );
     }
@@ -107,7 +112,7 @@ function tableDeleteRow( pTable, pTabDef, jKey, jKeyValue ) {
 
 function updateTable( pTable, pTabDef, jKey, jKeyValue, jObject)
 {
-  var tTabKey = tabGetJKey( jKey );
+  var tTabKey = tabGetJKey( pTabDef, jKey );
   if (tTabKey == null) {
     return Boolean( false );
   }

@@ -224,7 +224,7 @@ public class WebSocketHandler extends TextWebSocketHandler implements Distributo
         TextMessage tMessage = new TextMessage( pMessage );
         try {
             pSession.sendMessage(tMessage);
-        } catch (IOException e) {
+        } catch (Exception e) {
             mLogger.warn("failed to send message to: " + pSession.getRemoteAddress());
         }
     }
@@ -343,16 +343,17 @@ public class WebSocketHandler extends TextWebSocketHandler implements Distributo
 
             if (mWsSessionMap.containsKey( tUpdate.mSubscriptionEntity.mWsSession.getId() )) {
                 Update tBdx = new Update();
-                tBdx.setDistQueLen( tUpdate.mDistrQueLen );
-                tBdx.setSndrQueLen( tUpdate.mSenderQueLen );
+
                 tBdx.setCallbackRef( tUpdate.mSubscriptionEntity.mCallbackRef );
                 tBdx.setHandle( tUpdate.mSubscriptionEntity.mSubscrRefId );
                 tBdx.setSubjectId(tUpdate.mSubscriptionEntity.mSubjectId);
                 tBdx.setTime( tUpdate.mTime );
                 if (mConfiguration.isPayloadB64()) {
                     tBdx.setPayload( b64Encoder.encodeToString( tUpdate.mPayLoad ));
+                    tBdx.setPayloadIsB64( true );
                 } else {
                     tBdx.setPayload( new String( tUpdate.mPayLoad ));
+                    tBdx.setPayloadIsB64( false );
                 }
                 sendMessage( tUpdate.mSubscriptionEntity.mWsSession, tBdx);
             }

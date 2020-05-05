@@ -45,8 +45,7 @@ import com.google.gson.GsonBuilder;
                     private String mSubjectId;
                     private Long mHandle;
                     private String mTime;
-                    private Integer mDistQueLen;
-                    private Integer mSndrQueLen;
+                    private Boolean mPayloadIsB64;
                     private String mPayload;
                     private String mCallbackRef;
                public Update()
@@ -84,20 +83,12 @@ import com.google.gson.GsonBuilder;
               return  Optional.ofNullable(mTime);
             }
         
-            public Update setDistQueLen( Integer pDistQueLen ) {
-            mDistQueLen = pDistQueLen;
+            public Update setPayloadIsB64( Boolean pPayloadIsB64 ) {
+            mPayloadIsB64 = pPayloadIsB64;
             return this;
             }
-            public Optional<Integer> getDistQueLen() {
-              return  Optional.ofNullable(mDistQueLen);
-            }
-        
-            public Update setSndrQueLen( Integer pSndrQueLen ) {
-            mSndrQueLen = pSndrQueLen;
-            return this;
-            }
-            public Optional<Integer> getSndrQueLen() {
-              return  Optional.ofNullable(mSndrQueLen);
+            public Optional<Boolean> getPayloadIsB64() {
+              return  Optional.ofNullable(mPayloadIsB64);
             }
         
             public Update setPayload( String pPayload ) {
@@ -143,11 +134,8 @@ import com.google.gson.GsonBuilder;
             //Encode Attribute: mTime Type: String List: false
             tEncoder.add( "time", mTime );
         
-            //Encode Attribute: mDistQueLen Type: int List: false
-            tEncoder.add( "distQueLen", mDistQueLen );
-        
-            //Encode Attribute: mSndrQueLen Type: int List: false
-            tEncoder.add( "sndrQueLen", mSndrQueLen );
+            //Encode Attribute: mPayloadIsB64 Type: boolean List: false
+            tEncoder.add( "payloadIsB64", mPayloadIsB64 );
         
             //Encode Attribute: mPayload Type: String List: false
             tEncoder.add( "payload", mPayload );
@@ -172,11 +160,8 @@ import com.google.gson.GsonBuilder;
             //Decode Attribute: mTime Type:String List: false
             mTime = tDecoder.readString("time");
         
-            //Decode Attribute: mDistQueLen Type:int List: false
-            mDistQueLen = tDecoder.readInteger("distQueLen");
-        
-            //Decode Attribute: mSndrQueLen Type:int List: false
-            mSndrQueLen = tDecoder.readInteger("sndrQueLen");
+            //Decode Attribute: mPayloadIsB64 Type:boolean List: false
+            mPayloadIsB64 = tDecoder.readBoolean("payloadIsB64");
         
             //Decode Attribute: mPayload Type:String List: false
             mPayload = tDecoder.readString("payload");
@@ -223,13 +208,8 @@ import com.google.gson.GsonBuilder;
                         return this;
                     }
                 
-                        public Builder setDistQueLen( Integer pValue ) {
-                        mInstance.setDistQueLen( pValue );
-                        return this;
-                    }
-                
-                        public Builder setSndrQueLen( Integer pValue ) {
-                        mInstance.setSndrQueLen( pValue );
+                        public Builder setPayloadIsB64( Boolean pValue ) {
+                        mInstance.setPayloadIsB64( pValue );
                         return this;
                     }
                 

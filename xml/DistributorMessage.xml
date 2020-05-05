@@ -45,8 +45,7 @@
 		<Attribute name="subjectId" type="String"/>
 		<Attribute name="handle" type="long"/>
 		<Attribute name="time" type="String"/>
-		<Attribute name="distQueLen" type="int"/>
-		<Attribute name="sndrQueLen" type="int"/>
+		<Attribute name="payloadIsB64" type="boolean"/>
 		<Attribute name="payload" type="String"/>
 		<Attribute name="callbackRef" type="String"/>
 	</Message>

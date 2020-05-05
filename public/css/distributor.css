@@ -90,7 +90,14 @@ optgroup { font-size:14px; }
     overflow-x: hidden;  /* Hide the horizontal scroll */
 }
 
-
+#divSubscrTable {
+    table-layout:fixed;
+	margin-top:30px;
+	width:400px;
+	min-height:200px;
+	overflow-y: auto;    /* Trigger vertical scroll    */
+    overflow-x: hidden;  /* Hide the horizontal scroll */
+}
 
 #divUpdateTable {
     table-layout:fixed;
