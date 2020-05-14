@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
     <script src="js/distributor.js" type="text/javascript"></script>
-    <script src="js/table.js" type="text/javascript"></script>
+    <script src="js/jtable.js" type="text/javascript"></script>
     <link rel="stylesheet" type="text/css" href="css/distributor.css">
 
     <title>Distributor Subscriber</title>
@@ -81,21 +81,28 @@
 
     var requestId = Math.round(new Date() / 1000);
 
-    var subscriptionTableDef= { 'table' : 'supscriptions',
+    var subscriptionTableDef= { 'tableName' : 'subscriptionTable',
                          'onClick' : 'removeSubscription',
+                         'maxRows' : 0,
+                         'topDown' : 'true',
                          'keys' : [
-                           {'type' : 'string', 'column' : 0,  'jkey' : 'subject',        'cssClass' : 'tdString'},
-                           {'type' : 'string', 'column' : 1,  'jkey' : 'callbackRef',    'cssClass' : 'tdString'},
-                           {'type' : 'int',    'column' : 2,  'jkey' : 'updates',        'cssClass' : 'tdInt'}]};
+                             {'type' : 'string', 'column' : 0,  'jkey' : 'subject',        'cssClass' : 'tdString'},
+                             {'type' : 'string', 'column' : 1,  'jkey' : 'callbackRef',    'cssClass' : 'tdString'},
+                             {'type' : 'int',    'column' : 2,  'jkey' : 'updates',        'cssClass' : 'tdInt'}]};
 
-    var updateTableDef= { 'table' : 'regions',
-                        'keys' : [
-                           {'type' : 'string', 'column' : 0,  'jkey' : 'time',           'cssClass' : 'tdString'},
-                           {'type' : 'string', 'column' : 1,  'jkey' : 'payload',        'cssClass' : 'tdString'}]};
+    var updateTableDef= { 'tableName' : 'updateTable',
+                          'topDown'   : 'true',
+                          'maxRows'   : 100,
+                          'keys' : [
+                            {'type' : 'string', 'column' : 0,  'jkey' : 'time',           'cssClass' : 'tdString'},
+                            {'type' : 'string', 'column' : 1,  'jkey' : 'payload',        'cssClass' : 'tdString'}]};
 
+
+    var subscrTable = new jtable( subscriptionTableDef );
+    var updateTable = new jtable( updateTableDef );
 
     function removeSubscription( pTableRow ) {
-      var callbackRef = tableValueAtRowCol( document.getElementById('subscriptionTable'), pTableRow.rowIndex, 1 );
+      var callbackRef = subscrTable.valueAt( pTableRow.rowIndex, 1 );
       var subscr = subscriptions[ callbackRef ];
       if (subscr != null) {
           var msg = 'Remove subscription for "' + subscr.subject + '"<br>Are you sure?';
@@ -114,7 +121,7 @@
 		                "rqstId" : requestId,
 		                "handle" : subscr.handle }}
                  wsSocket.send(JSON.stringify(rqst));
-                 tableDeleteRow( document.getElementById('subscriptionTable'), subscriptionTableDef, 'callbackRef', callbackRef);
+                 subscrTable.deleteRow(  pTableRow.rowIndex );
                  $( this ).dialog( "close" );
                 },
                 Cancel: function() {
@@ -146,7 +153,7 @@
              var subscr = subscriptions[ key ];
              if (msg.AddSubscriptionRsp.rqstId == subscr.rqstId) {
                 subscr.handle = msg.AddSubscriptionRsp.handle;
-                tableInsert( document.getElementById('subscriptionTable'), subscriptionTableDef, subscr, Boolean( true ));
+                subscrTable.insert( subscr );
                 return;
              }
          }
@@ -182,14 +189,13 @@
         var subscr = subscriptions[ updmsg.Update.callbackRef ];
         if (subscr != null) {
           subscr.updates = (subscr.updates + 1);
-          updateTable( document.getElementById('subscriptionTable'), subscriptionTableDef, 'callbackRef',  updmsg.Update.callbackRef, subscr);
+          subscrTable.update('callbackRef',  updmsg.Update.callbackRef, subscr);
         }
 
        if (updmsg.Update.payloadIsB64 == Boolean( true )) {
          updmsg.Update.payload = atob( updmsg.Update.payload );
        }
-       tableInsert( document.getElementById('updateTable'), updateTableDef, updmsg.Update, Boolean( true ));
-       tableMaximizeSize( document.getElementById('updateTable'), 100 );
+       updateTable.insert(  updmsg.Update );
     }
 
     function wsDisconnect() {
@@ -234,7 +240,7 @@ $("#ws_add_subscription").submit(function(event) {
   event.preventDefault();
 
   if (isEmpty($('#subjectid').val())) {
-    alert("MSubscription id must not be empty!");
+    alert("Subscription id must not be empty!");
     return;
   }
 
