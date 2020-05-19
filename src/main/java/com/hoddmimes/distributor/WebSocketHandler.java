@@ -294,7 +294,7 @@ public class WebSocketHandler extends TextWebSocketHandler implements Distributo
     }
 
     @Override
-    public void distributorUpdate( String pSubjectName, byte[] pData, Object pCallbackParameter, int pQueueLength )
+    public void distributorUpdate( String pSubjectName, byte[] pData, Object pCallbackParameter, int pAppid, int pQueueLength )
     {
         long tSubscrRefId = (Long) pCallbackParameter;
         SubscriptionEntity tSubscriptionEntity = mSubscrRefMap.get( tSubscrRefId );
